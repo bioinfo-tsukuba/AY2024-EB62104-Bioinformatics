@@ -401,8 +401,8 @@
 <h2 id="基本課題a-1"><a name="基本課題a-1" class="plugin-anchor" href="#基本課題a-1"><i class="fa fa-link" aria-hidden="true"></i></a>基本課題A-1</h2>
 <ul>
 <li>各都道府県の新型コロナウイルス感染の新規陽性者数のデータの分析を行いたい。</li>
-<li>各都道府県の新型コロナウイルス感染の新規陽性者数のデータを<a href="https://www.mhlw.go.jp/stf/covid-19/open-data.html" target="_blank">厚生労働省のウェブサイト</a> あらかじめ教員が 2023-01-21 にダウンロードし、保存した。これを使う。</li>
-<li><code>newly_confirmed_cases_daily_20220121.csv</code> というファイル名である<ul>
+<li>各都道府県の新型コロナウイルス感染の新規陽性者数のデータを<a href="https://www.mhlw.go.jp/stf/covid-19/open-data.html" target="_blank">厚生労働省のウェブサイト</a> から、2023年1月21日 にダウンロードして保存したファイルを用いる。<ul>
+<li>ファイル名は <code>newly_confirmed_cases_daily_20320121.csv</code></li>
 <li>このデータはテキストファイルであるが、CSV（コンマ区切りファイル）というファイルフォーマット（ファイル形式）になっている</li>
 <li>CSVファイルはExcelで開くこともできるが、今回はRで開く）をダウンロードし、読み込んでグラフを作成したりする</li>
 </ul>
@@ -410,15 +410,15 @@
 </ul>
 <h3 id="1-新しくターミナルを開き、以下のコマンドを実行せよ"><a name="1-新しくターミナルを開き、以下のコマンドを実行せよ" class="plugin-anchor" href="#1-新しくターミナルを開き、以下のコマンドを実行せよ"><i class="fa fa-link" aria-hidden="true"></i></a>1. 新しくターミナルを開き、以下のコマンドを実行せよ</h3>
 <ul>
-<li>新しくターミナルを開く</li>
-</ul>
-<ul>
-<li><code>newly_confirmed_cases_daily_20220121.csv</code> をウェブ上においたので、これをダウンロードする<ol>
+<li><p>新しくターミナルを開く</p>
+</li>
+<li><p><code>newly_confirmed_cases_daily_20230121.csv</code> をウェブ上においたので、これをダウンロードする</p>
+<ol>
 <li><code>wget</code> コマンドを用いる</li>
 </ol>
 </li>
 </ul>
-<pre><code class="lang-bash">wget https://raw.githubusercontent.com/bioinfo-tsukuba/AY2022-EB62104-Bioinformatics/master/Training_A/newly_confirmed_cases_daily_20220121.csv
+<pre><code class="lang-bash">wget https://raw.githubusercontent.com/bioinfo-tsukuba/AY2024-EB62104-Bioinformatics/refs/heads/main/Training_A/newly_confirmed_cases_daily_20230121.csv
 </code></pre>
 <ul>
 <li><code>data</code> というディレクトリを作成する</li>
@@ -426,13 +426,13 @@
 <pre><code class="lang-bash"><span class="hljs-built_in">mkdir</span> data
 </code></pre>
 <ul>
-<li><code>data</code> というディレクトリに、 <code>newly_confirmed_cases_daily_20220121.csv</code> を移動する</li>
+<li><code>data</code> というディレクトリに、 <code>newly_confirmed_cases_daily_20230121.csv</code> を移動する</li>
 </ul>
-<pre><code class="lang-bash"><span class="hljs-built_in">mv</span> newly_confirmed_cases_daily_20220121.csv data/
+<pre><code class="lang-bash"><span class="hljs-built_in">mv</span> newly_confirmed_cases_daily_20230121.csv data/
 </code></pre>
 <ul>
-<li><code>ls</code> コマンドで、<code>data</code> ディレクトリの中に <code>newly_confirmed_cases_daily_20220121.csv</code> があることを確認する<ul>
-<li>以下のコマンドを実行して、 <code>newly_confirmed_cases_daily_20220121.csv</code> が出力されればOK</li>
+<li><code>ls</code> コマンドで、<code>data</code> ディレクトリの中に <code>newly_confirmed_cases_daily_20230121.csv</code> があることを確認する<ul>
+<li>以下のコマンドを実行して、 <code>newly_confirmed_cases_daily_20230121.csv</code> が出力されればOK</li>
 </ul>
 </li>
 </ul>
@@ -444,8 +444,15 @@
 <li><a href="A_01.html#a02-r-のノートブックを開く">手順のページ</a>を参照</li>
 </ul>
 </li>
+<li>以下、<code>Basic-A-1</code> において、Rのコードを実行する</li>
 </ul>
-<h3 id="3-1つ目のセルに以下のコードをコピペして実行せよ"><a name="3-1つ目のセルに以下のコードをコピペして実行せよ" class="plugin-anchor" href="#3-1つ目のセルに以下のコードをコピペして実行せよ"><i class="fa fa-link" aria-hidden="true"></i></a>3. 1つ目のセルに以下のコードをコピペして実行せよ</h3>
+<h3 id="3　-1つ目のセルに以下のコードをコピペして実行せよ"><a name="3　-1つ目のセルに以下のコードをコピペして実行せよ" class="plugin-anchor" href="#3　-1つ目のセルに以下のコードをコピペして実行せよ"><i class="fa fa-link" aria-hidden="true"></i></a>3.　 1つ目のセルに以下のコードをコピペして実行せよ</h3>
+<ul>
+<li>以下のコマンドでは<ul>
+<li><code>library()</code> コマンドにより、<code>tidyverse</code> というパッケージ（拡張機能）をロードします</li>
+</ul>
+</li>
+</ul>
 <pre><code class="lang-R">library<span class="hljs-punctuation">(</span>tidyverse<span class="hljs-punctuation">)</span>
 </code></pre>
 <ul>
@@ -454,9 +461,27 @@
 <li>&quot;Error&quot; とは書いていない</li>
 </ul>
 </li>
+<li>メッセージの例<pre><code class="lang-r">── Attaching core tidyverse packages ──────────────────────── tidyverse <span class="hljs-number">2.0</span>.0 ──
+✔ dplyr     <span class="hljs-number">1.1</span>.3     ✔ readr     <span class="hljs-number">2.1</span>.4
+✔ forcats   <span class="hljs-number">1.0</span>.0     ✔ stringr   <span class="hljs-number">1.5</span>.0
+✔ ggplot2   <span class="hljs-number">3.4</span>.4     ✔ tibble    <span class="hljs-number">3.2</span>.1
+✔ lubridate <span class="hljs-number">1.9</span>.3     ✔ tidyr     <span class="hljs-number">1.3</span>.0
+✔ purrr     <span class="hljs-number">1.0</span>.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> ──
+✖ dplyr<span class="hljs-operator">::</span>filter<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> masks stats<span class="hljs-operator">::</span>filter<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+✖ dplyr<span class="hljs-operator">::</span>lag<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>    masks stats<span class="hljs-operator">::</span>lag<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+ℹ Use the conflicted package <span class="hljs-punctuation">(</span><span class="hljs-operator">&lt;</span>http<span class="hljs-operator">:</span><span class="hljs-operator">/</span><span class="hljs-operator">/</span>conflicted.r<span class="hljs-operator">-</span>lib.org<span class="hljs-operator">/</span><span class="hljs-operator">&gt;</span><span class="hljs-punctuation">)</span> to force <span class="hljs-built_in">all</span> conflicts to become errors
+</code></pre>
+</li>
 </ul>
 <h3 id="4-2つ目のセルに以下のコードをコピペして実行せよ"><a name="4-2つ目のセルに以下のコードをコピペして実行せよ" class="plugin-anchor" href="#4-2つ目のセルに以下のコードをコピペして実行せよ"><i class="fa fa-link" aria-hidden="true"></i></a>4. 2つ目のセルに以下のコードをコピペして実行せよ</h3>
-<pre><code class="lang-R">df1 <span class="hljs-operator">&lt;-</span> read_csv<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;data/newly_confirmed_cases_daily_20220121.csv&quot;</span><span class="hljs-punctuation">,</span> col_names<span class="hljs-operator">=</span><span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span>
+<ul>
+<li>以下のコマンドでは<ul>
+<li><code>read_csv()</code> コマンドにより、CSVファイル <code>data/newly_confirmed_cases_daily_20230121.csv</code> を開き、データフレーム <code>df1</code> として格納します</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-R">df1 <span class="hljs-operator">&lt;-</span> read_csv<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;data/newly_confirmed_cases_daily_20230121.csv&quot;</span><span class="hljs-punctuation">,</span> col_names<span class="hljs-operator">=</span><span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span>
 </code></pre>
 <ul>
 <li>【確認】（↓ こんなふうになってなかったら教えてくださいっ！）<ul>
@@ -464,15 +489,35 @@
 <li>&quot;Error&quot; とは書いていない</li>
 </ul>
 </li>
+<li><p>メッセージの例</p>
+<pre><code class="lang-r">Rows<span class="hljs-operator">:</span> <span class="hljs-number">1101</span> Columns<span class="hljs-operator">:</span> <span class="hljs-number">49</span>
+── Column specification ────────────────────────────────────────────────────────
+Delimiter<span class="hljs-operator">:</span> <span class="hljs-string">&quot;,&quot;</span>
+chr  <span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-operator">:</span> Date
+dbl <span class="hljs-punctuation">(</span><span class="hljs-number">48</span><span class="hljs-punctuation">)</span><span class="hljs-operator">:</span> ALL<span class="hljs-punctuation">,</span> Hokkaido<span class="hljs-punctuation">,</span> Aomori<span class="hljs-punctuation">,</span> Iwate<span class="hljs-punctuation">,</span> Miyagi<span class="hljs-punctuation">,</span> Akita<span class="hljs-punctuation">,</span> Yamagata<span class="hljs-punctuation">,</span> Fukushima<span class="hljs-punctuation">,</span> ...
+
+ℹ Use `spec()` to retrieve the full column specification <span class="hljs-keyword">for</span> this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</code></pre>
+</li>
 </ul>
 <h3 id="5-3つ目のセルに以下のコードをコピペして実行せよ"><a name="5-3つ目のセルに以下のコードをコピペして実行せよ" class="plugin-anchor" href="#5-3つ目のセルに以下のコードをコピペして実行せよ"><i class="fa fa-link" aria-hidden="true"></i></a>5. 3つ目のセルに以下のコードをコピペして実行せよ</h3>
+<ul>
+<li>以下のコマンドでは<ul>
+<li><code>head()</code> コマンドにより、データフレーム <code>df1</code> の最初の数行を表示します</li>
+</ul>
+</li>
+</ul>
 <pre><code class="lang-R">head<span class="hljs-punctuation">(</span>df1<span class="hljs-punctuation">)</span>
 </code></pre>
 <ul>
 <li>【確認】（↓ こんなふうになってなかったら教えてくださいっ！）<ul>
-<li>&quot;A tibble: 6 × 49&quot; という表示が出力される</li>
+<li>&quot;A tibble: 6 × 49&quot; という表示が出力される<ul>
+<li>→　6行 x 49列の表形式データという意味です</li>
+</ul>
+</li>
 <li>６行（ヘッダー行を除く）の表が出力されている<ul>
-<li>（これが <code>newly_confirmed_cases_daily_20220121.csv</code> の冒頭の６行の内容）</li>
+<li>→　これが <code>newly_confirmed_cases_daily_20230121.csv</code> の冒頭の６行の内容です</li>
 </ul>
 </li>
 </ul>
@@ -485,13 +530,24 @@
 <ul>
 <li>【確認】（↓ こんなふうになってなかったら教えてくださいっ！）<ul>
 <li>&quot;1101  49&quot; という表示が出力される<ul>
-<li>1101行×49列の表であるということ</li>
+<li>→　1101行×49列の表であるという意味です</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <h3 id="7-5つ目のセルに以下のコードをコピペして実行せよ"><a name="7-5つ目のセルに以下のコードをコピペして実行せよ" class="plugin-anchor" href="#7-5つ目のセルに以下のコードをコピペして実行せよ"><i class="fa fa-link" aria-hidden="true"></i></a>7. 5つ目のセルに以下のコードをコピペして実行せよ</h3>
+<ul>
+<li>以下のコマンドでは<ul>
+<li><code>library()</code> コマンドにより、<code>lubridate</code> というパッケージ（拡張機能）をロードします<ul>
+<li><code>lubridate</code> というパッケージを用い、日付を扱うデータ型である date型 を使えるようにします</li>
+</ul>
+</li>
+<li><code>mutate()</code> コマンドにより、データフレーム <code>df1</code> の<code>Date</code> という列の値を date型 に変換して置き換えます。</li>
+<li><code>ggplot()</code> コマンドにより、グラフを描画します。<code>geom_line()</code> は線グラフを指定しています。</li>
+</ul>
+</li>
+</ul>
 <pre><code class="lang-R">library<span class="hljs-punctuation">(</span>lubridate<span class="hljs-punctuation">)</span>
 
 df1 <span class="hljs-operator">&lt;-</span> df1 <span class="hljs-operator">%&gt;%</span>
@@ -506,6 +562,13 @@ ggplot<span class="hljs-punctuation">(</span>df1<span class="hljs-punctuation">,
 </li>
 </ul>
 <h3 id="8-6つ目のセルに以下のコードをコピペして実行せよ"><a name="8-6つ目のセルに以下のコードをコピペして実行せよ" class="plugin-anchor" href="#8-6つ目のセルに以下のコードをコピペして実行せよ"><i class="fa fa-link" aria-hidden="true"></i></a>8. 6つ目のセルに以下のコードをコピペして実行せよ</h3>
+<ul>
+<li>以下のコマンドでは<ul>
+<li><code>filter()</code> コマンドにより、 Date列が &quot;2023-01-01&quot; 以降である行のみを抽出します</li>
+<li><code>select()</code> コマンドにより、Date, Ibaraki, Tokyo という３つの列のみを抽出します</li>
+</ul>
+</li>
+</ul>
 <pre><code class="lang-R">df1 <span class="hljs-operator">%&gt;%</span> 
     filter<span class="hljs-punctuation">(</span>Date  <span class="hljs-operator">&gt;=</span> <span class="hljs-string">&quot;2023-01-01&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>
     select<span class="hljs-punctuation">(</span>Date<span class="hljs-punctuation">,</span> Ibaraki<span class="hljs-punctuation">,</span> Tokyo<span class="hljs-punctuation">)</span>
@@ -562,7 +625,7 @@ ggplot<span class="hljs-punctuation">(</span>df1<span class="hljs-punctuation">,
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"課題","level":"1.2.3","depth":2,"next":{"title":"演習B","level":"1.3","depth":1,"ref":"","articles":[{"title":"イントロ","level":"1.3.1","depth":2,"path":"Training_B/B_00.md","ref":"Training_B/B_00.md","articles":[]},{"title":"手順１","level":"1.3.2","depth":2,"path":"Training_B/B_01/B_01.md","ref":"Training_B/B_01/B_01.md","articles":[]},{"title":"手順２","level":"1.3.3","depth":2,"path":"Training_B/B_01.md","ref":"Training_B/B_01.md","articles":[]},{"title":"手順３","level":"1.3.4","depth":2,"path":"Training_B/B_02.md","ref":"Training_B/B_02.md","articles":[]},{"title":"FAQ","level":"1.3.5","depth":2,"path":"Training_B/B_QA.md","ref":"Training_B/B_QA.md","articles":[]},{"title":"課題","level":"1.3.6","depth":2,"path":"Training_B/B_03.md","ref":"Training_B/B_03.md","articles":[]}]},"previous":{"title":"手順","level":"1.2.2","depth":2,"path":"Training_A/A_01.md","ref":"Training_A/A_01.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","hide-published-with","copy-code-button","intopic-toc","back-to-top-button","multipart","embed-pdf"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"multipart":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"advanced-emoji":{"embedEmojis":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"embed-pdf":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"2023年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"Training_A/A_02.md","mtime":"2024-01-20T04:59:01.534Z","type":"markdown"},"gitbook":{"version":"5.1.5","time":"2025-01-11T01:16:59.638Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"課題","level":"1.2.3","depth":2,"next":{"title":"演習B","level":"1.3","depth":1,"ref":"","articles":[{"title":"イントロ","level":"1.3.1","depth":2,"path":"Training_B/B_00.md","ref":"Training_B/B_00.md","articles":[]},{"title":"手順１","level":"1.3.2","depth":2,"path":"Training_B/B_01/B_01.md","ref":"Training_B/B_01/B_01.md","articles":[]},{"title":"手順２","level":"1.3.3","depth":2,"path":"Training_B/B_01.md","ref":"Training_B/B_01.md","articles":[]},{"title":"手順３","level":"1.3.4","depth":2,"path":"Training_B/B_02.md","ref":"Training_B/B_02.md","articles":[]},{"title":"FAQ","level":"1.3.5","depth":2,"path":"Training_B/B_QA.md","ref":"Training_B/B_QA.md","articles":[]},{"title":"課題","level":"1.3.6","depth":2,"path":"Training_B/B_03.md","ref":"Training_B/B_03.md","articles":[]}]},"previous":{"title":"手順","level":"1.2.2","depth":2,"path":"Training_A/A_01.md","ref":"Training_A/A_01.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","hide-published-with","copy-code-button","intopic-toc","back-to-top-button","multipart","embed-pdf"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"multipart":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"advanced-emoji":{"embedEmojis":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"embed-pdf":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"2023年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"Training_A/A_02.md","mtime":"2025-01-11T02:25:08.010Z","type":"markdown"},"gitbook":{"version":"5.1.5","time":"2025-01-11T02:25:54.947Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
