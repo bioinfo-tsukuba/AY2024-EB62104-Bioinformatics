@@ -18,5 +18,4 @@
     * [課題](Training_C/C_02.md)
 
 ## Links
-* [manabaのページ](https://manaba.tsukuba.ac.jp/ct/course_2907352)
-
+* [manabaのページ](https://manaba.tsukuba.ac.jp/ct/course_3315867)

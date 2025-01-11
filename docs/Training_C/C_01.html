@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>手順 · 2023年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104</title>
+        <title>手順 · 2024年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.5">
@@ -343,7 +343,7 @@
     
         <li class="chapter " data-level="2.1" >
             
-                <a target="_blank" href="https://manaba.tsukuba.ac.jp/ct/course_2907352">
+                <a target="_blank" href="https://manaba.tsukuba.ac.jp/ct/course_3315867">
             
                     
                     manabaのページ
@@ -403,33 +403,56 @@
 <h2 id="演習c-1-データをダウンロードする"><a name="演習c-1-データをダウンロードする" class="plugin-anchor" href="#演習c-1-データをダウンロードする"><i class="fa fa-link" aria-hidden="true"></i></a>[演習C] 1. データをダウンロードする</h2>
 <p><code>GSM3173562_Lakshmipuram_NCBI_processeddata.txt</code> (プラナリアの遺伝子発現量行列）をダウンロードする。</p>
 <p>Jupyter Hub のターミナルで、以下を実行する：</p>
-<p>ダウンロードする</p>
-<pre><code class="lang-bash">wget ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3173nnn/GSM3173562/suppl/GSM3173562_Lakshmipuram_NCBI_processeddata.txt.gz
+<ol>
+<li>ホームディレクトリへ移動する（<code>cd</code>コマンド）<pre><code class="lang-bash"> <span class="hljs-built_in">cd</span>
 </code></pre>
-<p>ダウンロードしたファイルを data というディレクトリへ移動する</p>
-<pre><code class="lang-bash"><span class="hljs-built_in">mv</span> GSM3173562_Lakshmipuram_NCBI_processeddata.txt.gz data/
+</li>
+<li>ダウンロードする（<code>wget</code>コマンド）<pre><code class="lang-bash"> wget ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3173nnn/GSM3173562/suppl/GSM3173562_Lakshmipuram_NCBI_processeddata.txt.gz
 </code></pre>
-<p>解凍する</p>
-<pre><code class="lang-bash">gunzip data/GSM3173562_Lakshmipuram_NCBI_processeddata.txt.gz
+</li>
+<li>ダウンロードしたファイルを data というディレクトリへ移動する（<code>mv</code>コマンド）<pre><code class="lang-bash"> <span class="hljs-built_in">mv</span> GSM3173562_Lakshmipuram_NCBI_processeddata.txt.gz data/
 </code></pre>
-<p>行数を調べる<br> ( <code>51563 data/GSM3173562_Lakshmipuram_NCBI_processeddata.txt</code> と表示されればOK )</p>
-<pre><code class="lang-bash"><span class="hljs-built_in">wc</span> -l data/GSM3173562_Lakshmipuram_NCBI_processeddata.txt
+</li>
+<li>解凍する（<code>gunzip</code>コマンド）<pre><code class="lang-bash"> gunzip data/GSM3173562_Lakshmipuram_NCBI_processeddata.txt.gz
 </code></pre>
-<p>中身を見てみる ( q を押すと戻れる )</p>
-<ul>
-<li>行が遺伝子名、列が細胞バーコード（ランダムなACGTの並び）、各要素がリードカウント（数値）になっていることを確認する</li>
+</li>
+<li>解凍されたファイルの存在を確認する（<code>ls</code>コマンド）<ul>
+<li><code>data/GSM3173562_Lakshmipuram_NCBI_processeddata.txt</code> と表示されればOK<pre><code class="lang-bash"><span class="hljs-built_in">ls</span> data/GSM3173562_Lakshmipuram_NCBI_processeddata.txt
+</code></pre>
+</li>
 </ul>
-<pre><code class="lang-bash">less -S data/GSM3173562_Lakshmipuram_NCBI_processeddata.txt
+</li>
+<li>行数を調べる（<code>wc</code>コマンド）<ul>
+<li>( <code>51563 data/GSM3173562_Lakshmipuram_NCBI_processeddata.txt</code> と表示されればOK )<pre><code class="lang-bash"><span class="hljs-built_in">wc</span> -l data/GSM3173562_Lakshmipuram_NCBI_processeddata.txt
 </code></pre>
+</li>
+</ul>
+</li>
+<li>中身を見てみる（<code>less</code>コマンド）<ul>
+<li>実行すると中身を見るモードで表示される。<code>f</code> を押すと下に、<code>b</code>を押すと上にスクロールする。<code>q</code> を押すと戻れる。<ul>
+<li>行が遺伝子名、列が細胞バーコード（ランダムなACGTの並び）、各要素がリードカウント（数値）になっていることを確認する<pre><code class="lang-bash">less -S data/GSM3173562_Lakshmipuram_NCBI_processeddata.txt
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 <h2 id="演習c-2-今回使用するノートブックをダウンロードする"><a name="演習c-2-今回使用するノートブックをダウンロードする" class="plugin-anchor" href="#演習c-2-今回使用するノートブックをダウンロードする"><i class="fa fa-link" aria-hidden="true"></i></a>[演習C] 2. 今回使用するノートブックをダウンロードする</h2>
 <p><code>planarian_single_cell.ipynb</code> を Jupyter Hub 上にダウンロードする。</p>
 <p>そのために、Jupyter Hub のターミナルで、以下を実行する：</p>
-<p>ダウンロードする：</p>
-<pre><code class="lang-bash">wget https://www.dropbox.com/s/7v3szc3nku52ajj/planarian_single_cell.ipynb
+<ol>
+<li>ダウンロードする（<code>wget</code>コマンド）<pre><code class="lang-bash"> wget https://www.dropbox.com/s/7v3szc3nku52ajj/planarian_single_cell.ipynb
 </code></pre>
-<p>ファイルの存在を確認する</p>
-<pre><code class="lang-bash"><span class="hljs-built_in">ls</span> planarian_single_cell.ipynb
+</li>
+<li>ダウンロードしたファイルの存在を確認する（<code>ls</code>コマンド）<ul>
+<li><code>planarian_single_cell.ipynb</code> と表示されればOK<pre><code class="lang-bash"><span class="hljs-built_in">ls</span> planarian_single_cell.ipynb
 </code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<!-- TODO: wget 先を変える -->
 </body></html>
                                 
                                 </section>
@@ -473,7 +496,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"手順","level":"1.4.2","depth":2,"next":{"title":"課題","level":"1.4.3","depth":2,"path":"Training_C/C_02.md","ref":"Training_C/C_02.md","articles":[]},"previous":{"title":"イントロ","level":"1.4.1","depth":2,"path":"Training_C/C_00.md","ref":"Training_C/C_00.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","hide-published-with","copy-code-button","intopic-toc","back-to-top-button","multipart","embed-pdf"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"multipart":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"advanced-emoji":{"embedEmojis":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"embed-pdf":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"2023年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"Training_C/C_01.md","mtime":"2024-01-21T05:57:00.007Z","type":"markdown"},"gitbook":{"version":"5.1.5","time":"2025-01-11T02:25:54.947Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"手順","level":"1.4.2","depth":2,"next":{"title":"課題","level":"1.4.3","depth":2,"path":"Training_C/C_02.md","ref":"Training_C/C_02.md","articles":[]},"previous":{"title":"イントロ","level":"1.4.1","depth":2,"path":"Training_C/C_00.md","ref":"Training_C/C_00.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","hide-published-with","copy-code-button","intopic-toc","back-to-top-button","multipart","embed-pdf"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"multipart":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"advanced-emoji":{"embedEmojis":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"embed-pdf":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"2024年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"Training_C/C_01.md","mtime":"2025-01-11T02:46:39.162Z","type":"markdown"},"gitbook":{"version":"5.1.5","time":"2025-01-11T15:36:31.604Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
