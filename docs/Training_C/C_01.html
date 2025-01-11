@@ -442,7 +442,7 @@
 <p><code>planarian_single_cell.ipynb</code> を Jupyter Hub 上にダウンロードする。</p>
 <p>そのために、Jupyter Hub のターミナルで、以下を実行する：</p>
 <ol>
-<li>ダウンロードする（<code>wget</code>コマンド）<pre><code class="lang-bash"> wget https://www.dropbox.com/s/7v3szc3nku52ajj/planarian_single_cell.ipynb
+<li>ダウンロードする（<code>wget</code>コマンド）<pre><code class="lang-bash"> wget https://raw.githubusercontent.com/bioinfo-tsukuba/AY2024-EB62104-Bioinformatics/refs/heads/main/Training_C/planarian_single_cell.ipynb
 </code></pre>
 </li>
 <li>ダウンロードしたファイルの存在を確認する（<code>ls</code>コマンド）<ul>
@@ -452,7 +452,33 @@
 </ul>
 </li>
 </ol>
-<!-- TODO: wget 先を変える -->
+<h2 id="演習c-3-rノートブックを実行し、１細胞rna-seqデータ解析の実際を体験する"><a name="演習c-3-rノートブックを実行し、１細胞rna-seqデータ解析の実際を体験する" class="plugin-anchor" href="#演習c-3-rノートブックを実行し、１細胞rna-seqデータ解析の実際を体験する"><i class="fa fa-link" aria-hidden="true"></i></a>[演習C] 3. Rノートブックを実行し、１細胞RNA-seqデータ解析の実際を体験する</h2>
+<ol>
+<li><code>planarian_single_cell.ipynb</code> を Jupyter Hub 上で開く</li>
+<li>「Table of Contents」を表示する<ol>
+<li>画面左側のアイコンのうち、「横棒３本のようなアイコン」をクリック
+<img src="img/2025-01-12-00-57-12.png" alt></li>
+</ol>
+</li>
+<li><code>planarian_single_cell.ipynb</code> の上から１つずつセルを実行せよ。<ul>
+<li>その際、ノートブックに含まれる説明書きをよく読むこと。</li>
+</ul>
+</li>
+<li>「ファイルブラウザー」を表示する<ol>
+<li>画面左側のアイコンのうち、「フォルダのようなアイコン」をクリック
+<img src="img/2025-01-12-00-59-11.png" alt></li>
+</ol>
+</li>
+<li><code>planarian_markers.rds</code> と <code>planarian_seurat.rds</code> という名前のRDSファイルができることを確認せよ。<ul>
+<li>RDSとは？<ul>
+<li>.rds ファイルは、Rプログラミング言語でデータを保存するためのファイル形式の1つで、特定のRオブジェクトを効率的に保存および読み込むために使われます。</li>
+<li>.rds ファイルは1つのRオブジェクトを保存することができます。データフレーム、リスト、ベクトル、モデルオブジェクトなど、どのようなRオブジェクトでも保存可能です。</li>
+<li>.rds ファイルを扱うためには、<code>saveRDS()</code> で保存し、読み込むには <code>readRDS()</code> を使用します。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 </body></html>
                                 
                                 </section>
@@ -496,7 +522,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"手順","level":"1.4.2","depth":2,"next":{"title":"課題","level":"1.4.3","depth":2,"path":"Training_C/C_02.md","ref":"Training_C/C_02.md","articles":[]},"previous":{"title":"イントロ","level":"1.4.1","depth":2,"path":"Training_C/C_00.md","ref":"Training_C/C_00.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","hide-published-with","copy-code-button","intopic-toc","back-to-top-button","multipart","embed-pdf"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"multipart":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"advanced-emoji":{"embedEmojis":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"embed-pdf":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"2024年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"Training_C/C_01.md","mtime":"2025-01-11T02:46:39.162Z","type":"markdown"},"gitbook":{"version":"5.1.5","time":"2025-01-11T15:36:31.604Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"手順","level":"1.4.2","depth":2,"next":{"title":"課題","level":"1.4.3","depth":2,"path":"Training_C/C_02.md","ref":"Training_C/C_02.md","articles":[]},"previous":{"title":"イントロ","level":"1.4.1","depth":2,"path":"Training_C/C_00.md","ref":"Training_C/C_00.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","hide-published-with","copy-code-button","intopic-toc","back-to-top-button","multipart","embed-pdf"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"multipart":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"advanced-emoji":{"embedEmojis":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"embed-pdf":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"2024年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"Training_C/C_01.md","mtime":"2025-01-11T16:22:32.098Z","type":"markdown"},"gitbook":{"version":"5.1.5","time":"2025-01-11T16:27:24.235Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
