@@ -402,7 +402,7 @@
                                 <html><head></head><body><h1 id="演習b：手順1"><a name="演習b：手順1" class="plugin-anchor" href="#演習b：手順1"><i class="fa fa-link" aria-hidden="true"></i></a>演習B：手順1</h1>
 <h2 id="概要"><a name="概要" class="plugin-anchor" href="#概要"><i class="fa fa-link" aria-hidden="true"></i></a>概要</h2>
 <ul>
-<li>演習Aに引き続き、 <code>newly_confirmed_cases_daily_20220121.csv</code> を分析します。</li>
+<li>演習Aに引き続き、 <code>newly_confirmed_cases_daily_20230121.csv</code> を分析します。</li>
 <li>方法<ul>
 <li>まず、Jupyter Hub で新たに R のノートブックを作成し、<code>B_01</code> との名前をつけましょう</li>
 <li>次に、以下の、Rのコードを、コピーし、実行しましょう。</li>
@@ -429,7 +429,7 @@
 </li>
 <li><code>df1</code> という名前のオブジェクトに読み込んだデータをデータフレーム（表）として代入</li>
 </ul>
-<pre><code class="lang-R">df1 <span class="hljs-operator">&lt;-</span> read_csv<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;data/newly_confirmed_cases_daily_20220121.csv&quot;</span><span class="hljs-punctuation">,</span> col_names<span class="hljs-operator">=</span><span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span>
+<pre><code class="lang-R">df1 <span class="hljs-operator">&lt;-</span> read_csv<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;data/newly_confirmed_cases_daily_20230121.csv&quot;</span><span class="hljs-punctuation">,</span> col_names<span class="hljs-operator">=</span><span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span>
 </code></pre>
 <h2 id="読み込んだファイルの中身の確認"><a name="読み込んだファイルの中身の確認" class="plugin-anchor" href="#読み込んだファイルの中身の確認"><i class="fa fa-link" aria-hidden="true"></i></a>読み込んだファイルの中身の確認</h2>
 <ul>
@@ -447,7 +447,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="パイプ記号--について"><a name="パイプ記号--について" class="plugin-anchor" href="#パイプ記号--について"><i class="fa fa-link" aria-hidden="true"></i></a>パイプ記号 (<code>%&gt;%</code>) について</h3>
+<h3 id="パイプ記号--について"><a name="パイプ記号--について" class="plugin-anchor" href="#パイプ記号--について"><i class="fa fa-link" aria-hidden="true"></i></a>パイプ記号 (<code>|&gt;</code>) について</h3>
 <ul>
 <li>Rでのデータ解析では複数の関数を順繰りに適用していくことが多い。<ul>
 <li>つまり、ある関数の出力を別の関数の入力にすることを繰り返す。</li>
@@ -457,17 +457,17 @@
 <li>例えば、 <code>f()</code>, <code>g()</code>, <code>h()</code> という関数を <code>x</code> というオブジェクトにかけるとすると、 <code>h(g(f(x)))</code></li>
 </ul>
 </li>
-<li>そこでパイプ記号 (<code>%&gt;%</code>)を用いることで読みやすくする（可読性を高める）。<ul>
+<li>そこでパイプ記号 (<code>|&gt;</code>)を用いることで読みやすくする（可読性を高める）。<ul>
 <li>パイプ記号の左側が入力で、右側が出力になっている。</li>
-<li>上の例では、<code>f(x) %&gt;% g() %&gt;% h()</code> といった書き方ができる</li>
+<li>上の例では、<code>f(x) |&gt; g() |&gt; h()</code> といった書き方ができる</li>
 </ul>
 </li>
-<li>オブジェクト自体をパイプ記号 (<code>%&gt;%</code>)の左側に置くこともできる<ul>
-<li>上の例では、 <code>x %&gt;% f() %&gt;% g() %&gt;% h()</code> といった書き方ができる</li>
+<li>オブジェクト自体をパイプ記号 (<code>|&gt;</code>)の左側に置くこともできる<ul>
+<li>上の例では、 <code>x |&gt; f() |&gt; g() |&gt; h()</code> といった書き方ができる</li>
 </ul>
 </li>
 <li>パイプでつながった部分はひとまとまりと（Rに）解釈される<ul>
-<li>上の例では、最終的な出力を <code>result</code> に代入したい場合、 <code>result &lt;- x %&gt;% f() %&gt;% g() %&gt;% h()</code>と書いても、 <code>result &lt;- h(g(f(x)))</code> と書いても同じと解釈される。</li>
+<li>上の例では、最終的な出力を <code>result</code> に代入したい場合、 <code>result &lt;- x |&gt; f() |&gt; g() |&gt; h()</code>と書いても、 <code>result &lt;- h(g(f(x)))</code> と書いても同じと解釈される。</li>
 </ul>
 </li>
 <li>パイプの後ろ（右側）に改行を入れても、改行が入っていないのと同じように解釈される</li>
@@ -477,7 +477,7 @@
 </ul>
 </li>
 </ul>
-<pre><code class="lang-R">df1 <span class="hljs-operator">&lt;-</span> df1 <span class="hljs-operator">%&gt;%</span>
+<pre><code class="lang-R">df1 <span class="hljs-operator">&lt;-</span> df1 <span class="hljs-operator">|&gt;</span>
     mutate<span class="hljs-punctuation">(</span>Date <span class="hljs-operator">=</span> as_date<span class="hljs-punctuation">(</span>Date<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
 </code></pre>
 <pre><code class="lang-R">head<span class="hljs-punctuation">(</span>df1<span class="hljs-punctuation">)</span>
@@ -536,8 +536,8 @@
 </ul>
 </li>
 </ul>
-<pre><code class="lang-R">df1long <span class="hljs-operator">&lt;-</span> df1 <span class="hljs-operator">%&gt;%</span>
-    select<span class="hljs-punctuation">(</span>Date<span class="hljs-punctuation">,</span> Tokyo<span class="hljs-punctuation">,</span> Ibaraki<span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>
+<pre><code class="lang-R">df1long <span class="hljs-operator">&lt;-</span> df1 <span class="hljs-operator">|&gt;</span>
+    select<span class="hljs-punctuation">(</span>Date<span class="hljs-punctuation">,</span> Tokyo<span class="hljs-punctuation">,</span> Ibaraki<span class="hljs-punctuation">)</span> <span class="hljs-operator">|&gt;</span>
     pivot_longer<span class="hljs-punctuation">(</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span>Tokyo<span class="hljs-punctuation">,</span> Ibaraki<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> names_to <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Place&quot;</span><span class="hljs-punctuation">,</span> values_to <span class="hljs-operator">=</span> <span class="hljs-string">&quot;N_positive&quot;</span><span class="hljs-punctuation">)</span>
 
 head<span class="hljs-punctuation">(</span>df1long<span class="hljs-punctuation">)</span>
@@ -571,7 +571,7 @@ head<span class="hljs-punctuation">(</span>df1long<span class="hljs-punctuation"
 <li><code>mutate()</code> は列の追加ができる（前述）</li>
 <li><code>wday()</code> は第1引数に設定された日付を曜日に変換できる</li>
 </ul>
-<pre><code class="lang-R">df1long <span class="hljs-operator">&lt;-</span> df1long <span class="hljs-operator">%&gt;%</span>
+<pre><code class="lang-R">df1long <span class="hljs-operator">&lt;-</span> df1long <span class="hljs-operator">|&gt;</span>
     mutate<span class="hljs-punctuation">(</span>Day <span class="hljs-operator">=</span> wday<span class="hljs-punctuation">(</span>Date<span class="hljs-punctuation">,</span> label <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span> abbr <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
 
 head<span class="hljs-punctuation">(</span>df1long<span class="hljs-punctuation">)</span>
@@ -690,7 +690,7 @@ plot<span class="hljs-punctuation">(</span>g2<span class="hljs-punctuation">)</s
 <li><code>dim(df1long_sub)</code> の出力から 240 行になっていることを確認</li>
 <li><code>dim(df1long)</code> で元のデータフレーは 2202行であることを確認</li>
 </ul>
-<pre><code class="lang-R">df1long_sub <span class="hljs-operator">&lt;-</span> df1long <span class="hljs-operator">%&gt;%</span> 
+<pre><code class="lang-R">df1long_sub <span class="hljs-operator">&lt;-</span> df1long <span class="hljs-operator">|&gt;</span> 
     filter<span class="hljs-punctuation">(</span>Date <span class="hljs-operator">&gt;</span> <span class="hljs-string">&quot;2022-06-01&quot;</span> <span class="hljs-operator">&amp;</span> Date <span class="hljs-operator">&lt;</span> <span class="hljs-string">&quot;2022-09-30&quot;</span><span class="hljs-punctuation">)</span>
 
 print<span class="hljs-punctuation">(</span><span class="hljs-built_in">dim</span><span class="hljs-punctuation">(</span>df1long_sub<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
@@ -737,7 +737,7 @@ plot<span class="hljs-punctuation">(</span>g4<span class="hljs-punctuation">)</s
 <ul>
 <li><code>facet_grid()</code> の <code>scales = &quot;free_y&quot;</code> オプションを使うと、y軸の範囲をプロットごとに変えて表示できる</li>
 </ul>
-<pre><code class="lang-R">df1long_sub <span class="hljs-operator">&lt;-</span> df1long <span class="hljs-operator">%&gt;%</span> filter<span class="hljs-punctuation">(</span>Date <span class="hljs-operator">&gt;</span> <span class="hljs-string">&quot;2022-06-01&quot;</span> <span class="hljs-operator">&amp;</span> Date <span class="hljs-operator">&lt;</span> <span class="hljs-string">&quot;2022-09-30&quot;</span><span class="hljs-punctuation">)</span>
+<pre><code class="lang-R">df1long_sub <span class="hljs-operator">&lt;-</span> df1long <span class="hljs-operator">|&gt;</span> filter<span class="hljs-punctuation">(</span>Date <span class="hljs-operator">&gt;</span> <span class="hljs-string">&quot;2022-06-01&quot;</span> <span class="hljs-operator">&amp;</span> Date <span class="hljs-operator">&lt;</span> <span class="hljs-string">&quot;2022-09-30&quot;</span><span class="hljs-punctuation">)</span>
 
 g5 <span class="hljs-operator">&lt;-</span> ggplot<span class="hljs-punctuation">(</span>df1long_sub<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>Date<span class="hljs-punctuation">,</span> N_positive<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span> geom_line<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
             facet_grid<span class="hljs-punctuation">(</span>Place<span class="hljs-operator">~</span>.<span class="hljs-punctuation">,</span> scales <span class="hljs-operator">=</span> <span class="hljs-string">&quot;free_y&quot;</span><span class="hljs-punctuation">)</span>
@@ -769,7 +769,7 @@ plot<span class="hljs-punctuation">(</span>g7<span class="hljs-punctuation">)</s
 </ul>
 </li>
 </ul>
-<pre><code class="lang-R">df1long_sub3 <span class="hljs-operator">&lt;-</span> df1long <span class="hljs-operator">%&gt;%</span> filter<span class="hljs-punctuation">(</span>Date <span class="hljs-operator">&gt;</span> <span class="hljs-string">&quot;2022-06-01&quot;</span> <span class="hljs-operator">&amp;</span> Date <span class="hljs-operator">&lt;</span> <span class="hljs-string">&quot;2022-09-30&quot;</span><span class="hljs-punctuation">)</span>
+<pre><code class="lang-R">df1long_sub3 <span class="hljs-operator">&lt;-</span> df1long <span class="hljs-operator">|&gt;</span> filter<span class="hljs-punctuation">(</span>Date <span class="hljs-operator">&gt;</span> <span class="hljs-string">&quot;2022-06-01&quot;</span> <span class="hljs-operator">&amp;</span> Date <span class="hljs-operator">&lt;</span> <span class="hljs-string">&quot;2022-09-30&quot;</span><span class="hljs-punctuation">)</span>
 
 g8 <span class="hljs-operator">&lt;-</span> ggplot<span class="hljs-punctuation">(</span>df1long_sub3<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>Date<span class="hljs-punctuation">,</span> N_positive<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span> geom_line<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span> 
             facet_grid<span class="hljs-punctuation">(</span>Place<span class="hljs-operator">~</span>Day<span class="hljs-punctuation">,</span> scales <span class="hljs-operator">=</span> <span class="hljs-string">&quot;free_y&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
@@ -783,7 +783,7 @@ plot<span class="hljs-punctuation">(</span>g8<span class="hljs-punctuation">)</s
 <p><strong>演算子系</strong></p>
 <ul>
 <li><code>&lt;-</code>: 代入演算子</li>
-<li><code>%&gt;%</code>: パイプ演算子（パイプ記号)。関数の出力を次の関数の入力に設定する。コードの可読性を高かめる。</li>
+<li><code>|&gt;</code>: パイプ演算子（パイプ記号)。関数の出力を次の関数の入力に設定する。コードの可読性を高かめる。</li>
 </ul>
 <p><strong>パッケージ（拡張機能）系</strong></p>
 <ul>
@@ -857,7 +857,7 @@ plot<span class="hljs-punctuation">(</span>g8<span class="hljs-punctuation">)</s
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"手順１","level":"1.3.2","depth":2,"next":{"title":"手順２","level":"1.3.3","depth":2,"path":"Training_B/B_01.md","ref":"Training_B/B_01.md","articles":[]},"previous":{"title":"イントロ","level":"1.3.1","depth":2,"path":"Training_B/B_00.md","ref":"Training_B/B_00.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","hide-published-with","copy-code-button","intopic-toc","back-to-top-button","multipart","embed-pdf"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"multipart":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"advanced-emoji":{"embedEmojis":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"embed-pdf":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"2024年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"Training_B/B_01/B_01.md","mtime":"2024-01-21T02:15:28.080Z","type":"markdown"},"gitbook":{"version":"5.1.5","time":"2025-01-12T01:30:50.927Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"手順１","level":"1.3.2","depth":2,"next":{"title":"手順２","level":"1.3.3","depth":2,"path":"Training_B/B_01.md","ref":"Training_B/B_01.md","articles":[]},"previous":{"title":"イントロ","level":"1.3.1","depth":2,"path":"Training_B/B_00.md","ref":"Training_B/B_00.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","hide-published-with","copy-code-button","intopic-toc","back-to-top-button","multipart","embed-pdf"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"multipart":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"advanced-emoji":{"embedEmojis":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"embed-pdf":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"2024年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"Training_B/B_01/B_01.md","mtime":"2025-01-12T01:55:35.728Z","type":"markdown"},"gitbook":{"version":"5.1.5","time":"2025-01-12T01:55:38.931Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
