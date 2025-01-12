@@ -586,6 +586,66 @@ ggplot<span class="hljs-punctuation">(</span>df1<span class="hljs-punctuation">,
 <li>Jupyter Hub上のメニューから Notebook (.ipynbのファイル) を開いた状態で <code>File &gt; Save and Export Notebook As... &gt; HTML</code> を選択すると、実行結果をHTML形式でダウンロードできる</li>
 <li>ダウンロードした <code>Basic-A-1.html</code> を manaba で提出せよ</li>
 </ul>
+<hr>
+<h2 id="基本課題a-2"><a name="基本課題a-2" class="plugin-anchor" href="#基本課題a-2"><i class="fa fa-link" aria-hidden="true"></i></a>基本課題A-2</h2>
+<h3 id="列が長いワイド型から行が長いロング型にデータを変換し-df1long-という新しいオブジェクトにいれる"><a name="列が長いワイド型から行が長いロング型にデータを変換し-df1long-という新しいオブジェクトにいれる" class="plugin-anchor" href="#列が長いワイド型から行が長いロング型にデータを変換し-df1long-という新しいオブジェクトにいれる"><i class="fa fa-link" aria-hidden="true"></i></a>列が長いワイド型から行が長いロング型にデータを変換し <code>df1long</code> という新しいオブジェクトにいれる</h3>
+<pre><code class="lang-r">df1long <span class="hljs-operator">&lt;-</span> df1 <span class="hljs-operator">|&gt;</span>
+    pivot_longer<span class="hljs-punctuation">(</span>cols <span class="hljs-operator">=</span> <span class="hljs-operator">-</span>Date<span class="hljs-punctuation">,</span> names_to <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Region&quot;</span><span class="hljs-punctuation">,</span> values_to <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Count&quot;</span><span class="hljs-punctuation">)</span>
+</code></pre>
+<h3 id="都道府県ごとの数を-（ただし、regionがallでないデータについてのみ）"><a name="都道府県ごとの数を-（ただし、regionがallでないデータについてのみ）" class="plugin-anchor" href="#都道府県ごとの数を-（ただし、regionがallでないデータについてのみ）"><i class="fa fa-link" aria-hidden="true"></i></a>都道府県ごとの数を （ただし、RegionがALLでないデータについてのみ）</h3>
+<pre><code class="lang-r">options<span class="hljs-punctuation">(</span>repr.plot.width <span class="hljs-operator">=</span> <span class="hljs-number">8</span><span class="hljs-punctuation">,</span> repr.plot.height <span class="hljs-operator">=</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span> repr.plot.res <span class="hljs-operator">=</span> <span class="hljs-number">100</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># &apos;ALL&apos; の行を除く（&apos;ALL&apos;でない行を選ぶ）</span>
+df1long_notALL <span class="hljs-operator">&lt;-</span> df1long <span class="hljs-operator">%&gt;%</span> filter<span class="hljs-punctuation">(</span>Region <span class="hljs-operator">!=</span> <span class="hljs-string">&quot;ALL&quot;</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># 折れ線グラフ</span>
+ggplot<span class="hljs-punctuation">(</span>
+    df1long_notALL<span class="hljs-punctuation">,</span>
+    aes<span class="hljs-punctuation">(</span>Date<span class="hljs-punctuation">,</span> Count<span class="hljs-punctuation">,</span> color <span class="hljs-operator">=</span> Region<span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span> 
+geom_line<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+theme<span class="hljs-punctuation">(</span>legend.position <span class="hljs-operator">=</span> <span class="hljs-string">&quot;bottom&quot;</span><span class="hljs-punctuation">)</span>
+</code></pre>
+<h3 id="regionごとにcount列を合計し、トップ5を抽出"><a name="regionごとにcount列を合計し、トップ5を抽出" class="plugin-anchor" href="#regionごとにcount列を合計し、トップ5を抽出"><i class="fa fa-link" aria-hidden="true"></i></a>RegionごとにCount列を合計し、トップ5を抽出</h3>
+<pre><code class="lang-r"><span class="hljs-comment"># RegionごとにCount列を合計し、トップ5がどのRegionかを抽出</span>
+top_regions <span class="hljs-operator">&lt;-</span> df1long_notALL <span class="hljs-operator">%&gt;%</span> 
+  group_by<span class="hljs-punctuation">(</span>Region<span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>                <span class="hljs-comment"># Regionごとにグループ化</span>
+  summarise<span class="hljs-punctuation">(</span>TotalCount <span class="hljs-operator">=</span> <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>Count<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>  <span class="hljs-comment"># Count列を合計</span>
+  arrange<span class="hljs-punctuation">(</span>desc<span class="hljs-punctuation">(</span>TotalCount<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>       <span class="hljs-comment"># 合計で降順にソート</span>
+  slice_head<span class="hljs-punctuation">(</span>n <span class="hljs-operator">=</span> <span class="hljs-number">5</span><span class="hljs-punctuation">)</span>                  <span class="hljs-comment"># 上位5行を抽出</span>
+
+print<span class="hljs-punctuation">(</span>top_regions<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Region 列をベクトルとして抜き出す</span>
+top_regions_names <span class="hljs-operator">&lt;-</span> pull<span class="hljs-punctuation">(</span>Region<span class="hljs-punctuation">)</span>     
+
+<span class="hljs-comment"># 抽出したトップ5のRegionに対応するデータを抽出</span>
+df1long_notALL_top5 <span class="hljs-operator">&lt;-</span> df1long_notALL <span class="hljs-operator">%&gt;%</span>
+  filter<span class="hljs-punctuation">(</span>Region <span class="hljs-operator">%in%</span> top_regions_names<span class="hljs-punctuation">)</span>
+</code></pre>
+<h3 id="トップ５だけのグラフを可視化"><a name="トップ５だけのグラフを可視化" class="plugin-anchor" href="#トップ５だけのグラフを可視化"><i class="fa fa-link" aria-hidden="true"></i></a>トップ５だけのグラフを可視化</h3>
+<pre><code class="lang-r"><span class="hljs-comment"># 折れ線グラフ</span>
+ggplot<span class="hljs-punctuation">(</span>
+    df1long_notALL_top5<span class="hljs-punctuation">,</span>
+    aes<span class="hljs-punctuation">(</span>Date<span class="hljs-punctuation">,</span> Count<span class="hljs-punctuation">,</span> color <span class="hljs-operator">=</span> Region<span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span> 
+geom_line<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+theme<span class="hljs-punctuation">(</span>legend.position <span class="hljs-operator">=</span> <span class="hljs-string">&quot;bottom&quot;</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># 最後のグラフをPDFとして保存</span>
+
+```r
+ggsave(filename = &quot;A-2.pdf&quot;, plot = last_plot())
+</code></pre>
+<h3 id="7-ダウンロードと提出"><a name="7-ダウンロードと提出" class="plugin-anchor" href="#7-ダウンロードと提出"><i class="fa fa-link" aria-hidden="true"></i></a>7. ダウンロードと提出</h3>
+<ul>
+<li><code>A-2.pdf</code> をダウンロードし、 manaba で提出せよ</li>
+<li>ダウンロード<ol>
+<li>ファイル一覧の中で、右クリック（Macだと <code>Ctrl+クリック</code>）し、「Copy Download Link」を選択する。</li>
+<li>次に、Webブラウザ（Chrome）で新しいタブを開き、アドレス欄に貼り付け（ペースト）をし、エンター（もしくはリターン）を押す。これでダウンロードが始まる（はず）。</li>
+</ol>
+</li>
+</ul>
 </body></html>
                                 
                                 </section>
@@ -625,7 +685,7 @@ ggplot<span class="hljs-punctuation">(</span>df1<span class="hljs-punctuation">,
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"課題","level":"1.2.3","depth":2,"next":{"title":"演習B","level":"1.3","depth":1,"ref":"","articles":[{"title":"イントロ","level":"1.3.1","depth":2,"path":"Training_B/B_00.md","ref":"Training_B/B_00.md","articles":[]},{"title":"手順１","level":"1.3.2","depth":2,"path":"Training_B/B_01/B_01.md","ref":"Training_B/B_01/B_01.md","articles":[]},{"title":"手順２","level":"1.3.3","depth":2,"path":"Training_B/B_01.md","ref":"Training_B/B_01.md","articles":[]},{"title":"手順３","level":"1.3.4","depth":2,"path":"Training_B/B_02.md","ref":"Training_B/B_02.md","articles":[]},{"title":"FAQ","level":"1.3.5","depth":2,"path":"Training_B/B_QA.md","ref":"Training_B/B_QA.md","articles":[]},{"title":"課題","level":"1.3.6","depth":2,"path":"Training_B/B_03.md","ref":"Training_B/B_03.md","articles":[]}]},"previous":{"title":"手順","level":"1.2.2","depth":2,"path":"Training_A/A_01.md","ref":"Training_A/A_01.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","hide-published-with","copy-code-button","intopic-toc","back-to-top-button","multipart","embed-pdf"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"multipart":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"advanced-emoji":{"embedEmojis":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"embed-pdf":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"2024年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"Training_A/A_02.md","mtime":"2025-01-11T15:02:57.761Z","type":"markdown"},"gitbook":{"version":"5.1.5","time":"2025-01-11T16:27:24.235Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"課題","level":"1.2.3","depth":2,"next":{"title":"演習B","level":"1.3","depth":1,"ref":"","articles":[{"title":"イントロ","level":"1.3.1","depth":2,"path":"Training_B/B_00.md","ref":"Training_B/B_00.md","articles":[]},{"title":"手順１","level":"1.3.2","depth":2,"path":"Training_B/B_01/B_01.md","ref":"Training_B/B_01/B_01.md","articles":[]},{"title":"手順２","level":"1.3.3","depth":2,"path":"Training_B/B_01.md","ref":"Training_B/B_01.md","articles":[]},{"title":"手順３","level":"1.3.4","depth":2,"path":"Training_B/B_02.md","ref":"Training_B/B_02.md","articles":[]},{"title":"FAQ","level":"1.3.5","depth":2,"path":"Training_B/B_QA.md","ref":"Training_B/B_QA.md","articles":[]},{"title":"課題","level":"1.3.6","depth":2,"path":"Training_B/B_03.md","ref":"Training_B/B_03.md","articles":[]}]},"previous":{"title":"手順","level":"1.2.2","depth":2,"path":"Training_A/A_01.md","ref":"Training_A/A_01.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","advanced-emoji","hide-published-with","copy-code-button","intopic-toc","back-to-top-button","multipart","embed-pdf"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"multipart":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"advanced-emoji":{"embedEmojis":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"embed-pdf":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"2024年度 筑波大学 生命環境学群 「バイオインフォマティクス」 EB62104","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"Training_A/A_02.md","mtime":"2025-01-12T00:22:23.053Z","type":"markdown"},"gitbook":{"version":"5.1.5","time":"2025-01-12T00:25:47.852Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
